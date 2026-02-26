@@ -31,4 +31,14 @@ Criteria: If the value "ScheduleDay" is REG_DWORD = 0, this is not a finding.'
   tag legacy: ['SV-89925', 'V-75245']
   tag cci: ['CCI-001308']
   tag nist: ['SI-8 (2)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Signature Updates'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
+    its('ScheduleDay') { should eq 0 }
+  end
+
 end

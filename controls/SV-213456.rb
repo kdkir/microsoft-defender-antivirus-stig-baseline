@@ -29,4 +29,13 @@ Click "Show...". Set the Value name to "BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550" an
   tag legacy: ['SV-92661', 'V-77965']
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules'
+
+  describe registry_key(registry_path) do
+    it { should exist }
+    it { should have_property 'BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550' }
+    its('BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550') { should eq "1" }
+  end
+
 end

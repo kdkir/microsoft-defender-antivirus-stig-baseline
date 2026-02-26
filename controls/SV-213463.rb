@@ -22,4 +22,14 @@ Criteria: If the value "EnableNetworkProtection" is REG_DWORD = 1, this is not a
   tag legacy: ['SV-92675', 'V-77979']
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
+    its('EnableNetworkProtection') { should eq 1 }
+  end
+
 end

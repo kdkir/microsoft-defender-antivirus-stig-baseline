@@ -31,4 +31,13 @@ Click "Apply".'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules'
+
+  describe registry_key(registry_path) do
+    it { should exist }
+    it { should have_property '26190899-1602-49e8-8b27-eb1d0a1ce869' }
+    its('26190899-1602-49e8-8b27-eb1d0a1ce869') { should eq "1" }
+  end
+
 end

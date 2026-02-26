@@ -25,4 +25,14 @@ Click "Apply".'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Features'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 1 => Passes
+    # Value = 0 => FAILS
+    its('PassiveRemediation') { should eq 1 }
+  end
+
 end

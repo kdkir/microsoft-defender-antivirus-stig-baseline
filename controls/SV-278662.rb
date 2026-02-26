@@ -27,4 +27,14 @@ Click "Apply".'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\MpEngine'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 50 => Passes
+    # Value = 1 => FAILS
+    its('MpBafsExtendedTimeout') { should eq 50 }
+  end
+
 end

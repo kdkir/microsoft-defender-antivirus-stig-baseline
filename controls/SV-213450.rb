@@ -33,4 +33,12 @@ Values of 0x0 through 0x7 are acceptable and not a finding.'
   tag legacy: ['SV-89917', 'V-75237']
   tag cci: ['CCI-001241']
   tag nist: ['SI-3 c 1']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
+
+  describe registry_key(registry_path) do
+    it { should have_property 'ScheduleDay' }
+    its('ScheduleDay') { should be_between(0, 7).inclusive }
+  end
+
 end

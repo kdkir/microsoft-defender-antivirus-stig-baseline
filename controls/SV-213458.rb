@@ -26,4 +26,13 @@ Click "Show...". Set the Value name to "3B576869-A4EC-4529-8536-B80A7769E899" an
   tag legacy: ['SV-92665', 'V-77969']
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules'
+
+  describe registry_key(registry_path) do
+    it { should exist }
+    it { should have_property 'B576869-A4EC-4529-8536-B80A7769E899' }
+    its('B576869-A4EC-4529-8536-B80A7769E899') { should eq "1" }
+  end
+
 end

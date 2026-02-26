@@ -25,4 +25,14 @@ Click "Apply".'
   tag 'documentable'
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 1 => Passes
+    # Value = 0 => FAILS
+    its('QuickScanIncludeExclusions') { should eq 1 }
+  end
+
 end

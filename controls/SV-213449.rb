@@ -20,4 +20,14 @@ Criteria: If the value "DisableRemovableDriveScanning" is REG_DWORD = 0, this is
   tag legacy: ['SV-89915', 'V-75235']
   tag cci: ['CCI-000870']
   tag nist: ['MA-3 (2)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
+    its('DisableRemovableDriveScanning') { should eq 0 }
+  end
+
 end

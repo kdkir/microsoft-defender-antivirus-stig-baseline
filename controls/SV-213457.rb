@@ -26,4 +26,13 @@ Click "Show...". Set the Value name to "D4F940AB-401B-4EFC-AADC-AD5F3C50688A" an
   tag legacy: ['SV-92663', 'V-77967']
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules'
+
+  describe registry_key(registry_path) do
+    it { should exist }
+    it { should have_property 'D4F940AB-401B-4EFC-AADC-AD5F3C50688A' }
+    its('D4F940AB-401B-4EFC-AADC-AD5F3C50688A') { should eq "1" }
+  end
+  
 end

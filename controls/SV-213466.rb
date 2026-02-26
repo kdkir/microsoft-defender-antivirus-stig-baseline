@@ -35,4 +35,13 @@ Select the "Show…" option box and enter "1" in the "Value name" field and ente
   tag legacy: ['SV-94675', 'V-79971']
   tag cci: ['CCI-001662']
   tag nist: ['SC-18 (1)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Threats\\ThreatSeverityDefaultAction'
+
+  describe registry_key(registry_path) do
+    it { should exist }
+    it { should have_property '1' }
+    its('1') { should be_in ['2', '3'] }
+  end
+
 end

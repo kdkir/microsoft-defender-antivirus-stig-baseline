@@ -32,4 +32,11 @@ Do not select a value of 0. This disables the option.'
   tag legacy: ['SV-89923', 'V-75243']
   tag cci: ['CCI-001240']
   tag nist: ['SI-3 b']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Signature Updates'
+
+  describe registry_key(registry_path) do
+    it { should have_property 'AVSignatureDue' }
+    its('AVSignatureDue') { should be_between(1, 7).inclusive }
+  end
 end

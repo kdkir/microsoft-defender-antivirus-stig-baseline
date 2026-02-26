@@ -25,4 +25,14 @@ Click "Apply".'
   tag 'documentable'
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
+    its('DisableHeuristics') { should eq 0 }
+  end
+
 end
