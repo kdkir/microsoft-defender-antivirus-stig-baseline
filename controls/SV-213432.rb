@@ -28,4 +28,14 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
   tag legacy: ['SV-89841', 'V-75161']
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+ 
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => passes
+    # Value = 1 => FAILS
+    its('LocalSettingOverrideSpynetReporting') { should_not eq 1 }
+  end
+
 end
