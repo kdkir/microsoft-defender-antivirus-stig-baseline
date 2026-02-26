@@ -20,4 +20,11 @@ Criteria: If the value "DisableAutoExclusions" is REG_DWORD = 0, this is not a f
   tag legacy: ['SV-89839', 'V-75159']
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Exclusions'
+  
+  describe registry_key(registry_path) do
+    its('DisableAutoExclusions') { should eq 0 }
+  end
+
 end
