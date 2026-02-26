@@ -24,4 +24,14 @@ If the value is 1, this is a finding.'
   tag legacy: ['SV-89897', 'V-75217']
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
+    its('LocalSettingOverrideDisableBehaviorMonitoring') { should eq 0 }
+  end
+
 end
