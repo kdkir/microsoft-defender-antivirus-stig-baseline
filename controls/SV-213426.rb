@@ -23,4 +23,13 @@ If the value "PUAProtection" is REG_DWORD = 1, this is not a finding.'
   tag legacy: ['SV-89827', 'V-75147']
   tag cci: ['CCI-001243']
   tag nist: ['SI-3 c 2']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender'
+
+  describe registry_key(registry_path) do
+    it { should exist }
+    it { should have_property 'PUAProtection' }
+    its('PUAProtection') { should eq 1 }
+  end
+
 end
