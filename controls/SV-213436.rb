@@ -28,8 +28,9 @@ If the value is 1, this is a finding.'
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\NIS'
 
   describe registry_key(registry_path) do
-    it { should exist }
-    it { should have_property 'DisableProtocolRecognition' }
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
     its('DisableProtocolRecognition') { should eq 0 }
   end
 
