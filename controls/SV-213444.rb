@@ -24,4 +24,14 @@ If the value is 1, this is a finding.'
   tag legacy: ['SV-89905', 'V-75225']
   tag cci: ['CCI-001169']
   tag nist: ['SC-18 (3)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
+    its('DisableIOAVProtection') { should eq 0 }
+  end
+
 end
