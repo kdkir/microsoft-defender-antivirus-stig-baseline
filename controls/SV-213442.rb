@@ -30,7 +30,7 @@ If the value is 1 or 2, this is a finding.'
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
 
-    registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
 
   describe registry_key(registry_path) do
     # Missing value => nil => passes
