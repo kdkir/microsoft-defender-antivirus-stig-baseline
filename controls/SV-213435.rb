@@ -28,4 +28,13 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
   tag legacy: ['SV-89887', 'V-75207']
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet'
+
+  describe registry_key(registry_path) do
+    it { should exist }
+    it { should have_property 'SubmitSamplesConsent' }
+    its('SubmitSamplesConsent') { should eq 1 }
+  end
+
 end
