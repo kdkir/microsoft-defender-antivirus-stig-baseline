@@ -33,4 +33,10 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
   tag legacy: ['SV-89843', 'V-75163']
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
+
+  registry_path = 'HKLM\Software\Policies\Microsoft\Windows Defender\Spynet'
+  
+  describe registry_key(registry_path) do
+    its('DDisableBlockAtFirstSeen') { should eq 0 }
+  end
 end
