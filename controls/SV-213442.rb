@@ -29,4 +29,13 @@ If the value is 1 or 2, this is a finding.'
   tag legacy: ['SV-89901', 'V-75221']
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
+
+    registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
+
+  describe registry_key(registry_path) do
+    # Missing value => nil => passes
+    # Value = 0 => Passes
+    # Value = 1 => FAILS
+    its('RealtimeScanDirection') { should eq 0 }
+  end
 end
