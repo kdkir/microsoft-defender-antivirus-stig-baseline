@@ -24,4 +24,14 @@ If the value is 1, this is a finding.'
   tag legacy: ['SV-89831', 'V-75151']
   tag cci: ['CCI-001243']
   tag nist: ['SI-3 c 2']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender'
+
+  describe registry_key(registry_path) do
+    # If the value is missing => nil => passes
+    # If the value is 0 => passes
+    # If the value is 1 => FAILS
+    its('DisableRoutinelyTakingAction') { should_not eq 1 }
+  end
+
 end
