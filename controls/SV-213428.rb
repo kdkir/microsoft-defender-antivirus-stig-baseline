@@ -25,4 +25,11 @@ Criteria: If the value "DisableAntiSpyware" does not exist, this is not a findin
   tag legacy: ['SV-89833', 'V-75153']
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
+
+  registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender'
+
+  describe registry_key(registry_path) do
+    it { should_not have_property 'DisableAntiSpyware' }
+  end
+
 end
