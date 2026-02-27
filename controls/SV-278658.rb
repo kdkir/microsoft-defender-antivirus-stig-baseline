@@ -4,7 +4,7 @@ control 'SV-278658' do
 
 Enabled: If this setting is enabled, local admins no longer see the exclusion list in Windows Security App or via PowerShell.O13.
 
-Note: Applying this setting will not remove exclusions, it only prevents them from being visible to local admins. This is reflected in?Get-MpPreference.I13.'
+Note: Applying this setting will not remove exclusions, it only prevents them from being visible to local admins. This is reflected in Get-MpPreference'
   desc 'check', 'Verify the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Control whether or not exclusions are visible to Local Admins is set to "Enabled"; otherwise, this is a finding.
 
 Procedure: Use the Windows Registry Editor to navigate to the following key: 
@@ -33,9 +33,6 @@ Click "Apply".'
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender'
 
   describe registry_key(registry_path) do
-    # Missing value => nil => passes
-    # Value = 0 => Passes
-    # Value = 1 => FAILS
     its('HideExclusionsFromLocalAdmins') { should eq 1 }
   end
 

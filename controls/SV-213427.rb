@@ -31,7 +31,7 @@ If the value is 1, this is a finding.'
     # If the value is missing => nil => passes
     # If the value is 0 => passes
     # If the value is 1 => FAILS
-    its('DisableRoutinelyTakingAction') { should_not eq 1 }
+    its('DisableRoutinelyTakingAction') { should be_nil.or eq 0 }
   end
 
 end

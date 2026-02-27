@@ -31,6 +31,6 @@ If the value is 1, this is a finding.'
     # Missing value => nil => passes
     # Value = 0 => Passes
     # Value = 1 => FAILS
-    its('DisableRealtimeMonitoring') { should eq 0 }
+    its('DisableRealtimeMonitoring') { should be_nil.or eq 0 }
   end
 end

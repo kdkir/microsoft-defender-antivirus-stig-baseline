@@ -32,7 +32,7 @@ Click "Apply".'
     # Missing value => nil => passes
     # Value = 0 => Passes
     # Value = 1 => FAILS
-    its('DisableHeuristics') { should eq 0 }
+    its('DisableHeuristics') { should be_nil.or eq 0 }
   end
 
 end

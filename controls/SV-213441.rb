@@ -31,7 +31,7 @@ If the value is 1, this is a finding.'
     # Missing value => nil => passes
     # Value = 0 => Passes
     # Value = 1 => FAILS
-    its('LocalSettingOverrideDisableRealtimeMonitoring') { should eq 0 }
+    its('LocalSettingOverrideDisableRealtimeMonitoring') { should be_nil.or eq 0 }
   end
 
 end

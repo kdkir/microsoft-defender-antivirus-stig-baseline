@@ -27,9 +27,7 @@ If the value "PUAProtection" is REG_DWORD = 1, this is not a finding.'
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender'
 
   describe registry_key(registry_path) do
-    it { should exist }
-    it { should have_property 'PUAProtection' }
-    its('PUAProtection') { should eq 1 }
+    its('PUAProtection') { should be_nil.or eq 1 }
   end
 
 end

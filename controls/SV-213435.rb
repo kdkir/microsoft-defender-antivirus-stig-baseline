@@ -32,9 +32,11 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet'
 
   describe registry_key(registry_path) do
-    it { should exist }
-    it { should have_property 'SubmitSamplesConsent' }
-    its('SubmitSamplesConsent') { should eq 1 }
+    # Default behavior is 1, https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-defender#submitsamplesconsent
+    # Missing value => nil => passes
+    # Value = 1 => Passes
+    # Value = 0 => FAILS
+    its('SubmitSamplesConsent') { should be_nil.or eq 1 }
   end
 
 end

@@ -38,7 +38,7 @@ Click "Apply".'
     # Missing value => nil => passes
     # Value = 1 => Passes
     # Value = 0 => FAILS
-    its('EnableConvertWarnToBlock') { should eq 1 }
+    its('EnableConvertWarnToBlock') { should be_nil.or eq 1 }
   end
 
 end

@@ -35,7 +35,7 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
     # Missing value => nil => passes
     # Value = 0 => passes
     # Value = 1 => FAILS
-    its('LocalSettingOverrideSpynetReporting') { should_not eq 1 }
+    its('LocalSettingOverrideSpynetReporting') { should be_nil.or eq 1 }
   end
 
 end

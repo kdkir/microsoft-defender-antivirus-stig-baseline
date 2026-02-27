@@ -26,9 +26,6 @@ Criteria: If the value "EnableNetworkProtection" is REG_DWORD = 1, this is not a
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection'
 
   describe registry_key(registry_path) do
-    # Missing value => nil => passes
-    # Value = 0 => Passes
-    # Value = 1 => FAILS
     its('EnableNetworkProtection') { should eq 1 }
   end
 

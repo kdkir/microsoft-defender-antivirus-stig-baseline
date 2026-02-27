@@ -37,9 +37,8 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
 registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet'
 
   describe registry_key(registry_path) do
-    it { should exist }
-    it { should have_property 'SpynetReporting' }
-    its('SpynetReporting') { should be_in [1, 2] }
+    # Default behavior is 1, https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-defender#allowcloudprotection
+    its('SpynetReporting') { should be_nil.or be_in [1, 2] }
   end
 
 end

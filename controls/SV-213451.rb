@@ -24,9 +24,6 @@ Criteria: If the value "DisableEmailScanning" is REG_DWORD = 0, this is not a fi
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
 
   describe registry_key(registry_path) do
-    # Missing value => nil => passes
-    # Value = 0 => Passes
-    # Value = 1 => FAILS
     its('DisableEmailScanning') { should eq 0 }
   end
 

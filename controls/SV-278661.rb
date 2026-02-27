@@ -29,9 +29,6 @@ Click "Apply".'
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\MpEngine'
 
   describe registry_key(registry_path) do
-    # Missing value => nil => passes
-    # Value = 0 => Passes
-    # Value = 1 => FAILS
     its('EnableFileHashComputation') { should eq 1 }
   end
 

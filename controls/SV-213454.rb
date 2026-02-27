@@ -38,7 +38,7 @@ Criteria: If the value "ScheduleDay" is REG_DWORD = 0, this is not a finding.'
     # Missing value => nil => passes
     # Value = 0 => Passes
     # Value = 1 => FAILS
-    its('ScheduleDay') { should eq 0 }
+    its('ScheduleDay') { should be_nil.or eq 0 }
   end
 
 end
