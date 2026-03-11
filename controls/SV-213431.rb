@@ -24,7 +24,8 @@ Criteria: If the value "DisableAutoExclusions" is REG_DWORD = 0, this is not a f
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Exclusions'
   
   describe registry_key(registry_path) do
-    its('DisableAutoExclusions') { should eq 0 }
+    #Default behavior is 0 per https://learn.microsoft.com/en-us/defender-endpoint/configure-server-exclusions-microsoft-defender-antivirus#automatic-server-role-exclusions
+    its('DisableAutoExclusions') { should be_nil.or eq 0 }
   end
 
 end
