@@ -37,6 +37,6 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
   registry_path = 'HKLM\Software\Policies\Microsoft\Windows Defender\Spynet'
   
   describe registry_key(registry_path) do
-    its('DDisableBlockAtFirstSeen') { should eq 0 }
+    its('DisableBlockAtFirstSeen') { should eq 0 }
   end
 end
