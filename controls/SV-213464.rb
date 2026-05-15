@@ -36,6 +36,8 @@ Select the "Show…" option box and enter "4" in the "Value name" field and ente
   tag cci: ['CCI-001662']
   tag nist: ['SC-18 (1)']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Threats\\ThreatSeverityDefaultAction'
 
   describe registry_key(registry_path) do

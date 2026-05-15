@@ -24,6 +24,8 @@ If the value "PUAProtection" is REG_DWORD = 1, this is not a finding.'
   tag cci: ['CCI-001243']
   tag nist: ['SI-3 c 2']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender'
 
   describe registry_key(registry_path) do

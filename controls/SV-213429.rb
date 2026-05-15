@@ -23,6 +23,8 @@ Criteria: If the value "Exclusions_Paths" does not exist, this is not a finding.
   tag cci: ['CCI-001242']
   tag nist: ['SI-3 c 1']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Exclusions'
 
   describe registry_key(registry_path) do

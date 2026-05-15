@@ -27,6 +27,8 @@ Click "Show...". Set the Value name to "D3E037E1-3EB8-44C8-A917-57927947596D" an
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules'
 
   describe registry_key(registry_path) do

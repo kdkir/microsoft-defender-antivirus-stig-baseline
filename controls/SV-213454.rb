@@ -32,6 +32,8 @@ Criteria: If the value "ScheduleDay" is REG_DWORD = 0, this is not a finding.'
   tag cci: ['CCI-001308']
   tag nist: ['SI-8 (2)']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Signature Updates'
 
   describe registry_key(registry_path) do

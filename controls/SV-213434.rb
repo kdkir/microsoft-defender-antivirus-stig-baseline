@@ -34,6 +34,8 @@ Set the policy value for Computer Configuration >> Administrative Templates >> W
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
 registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet'
 
   describe registry_key(registry_path) do

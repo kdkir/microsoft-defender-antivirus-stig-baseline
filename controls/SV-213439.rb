@@ -25,6 +25,8 @@ If the value is 1, this is a finding.'
   tag cci: ['CCI-001169']
   tag nist: ['SC-18 (3)']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
 
   describe registry_key(registry_path) do

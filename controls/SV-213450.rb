@@ -34,6 +34,8 @@ Values of 0x0 through 0x7 are acceptable and not a finding.'
   tag cci: ['CCI-001241']
   tag nist: ['SI-3 c 1']
 
+  only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
+
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
 
   describe registry_key(registry_path) do
