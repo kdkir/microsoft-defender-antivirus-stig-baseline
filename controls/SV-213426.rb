@@ -4,18 +4,22 @@ control 'SV-213426' do
   desc 'check', 'Verify the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> "Configure detection for potentially unwanted applications" is set to "Enabled" and "Block".
 
 Use the Windows Registry Editor to navigate to the following key: 
-
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender
 
 If the value "PUAProtection" does not exist, this is a finding.
+If the value "PUAProtection" is "REG_DWORD = 1", this is not a finding.
 
-If the value "PUAProtection" is REG_DWORD = 1, this is not a finding.'
+Alternate Check (if Microsoft Intune applied this setting):
+
+Navigate to "HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager".
+
+If the value "PUAProtection" is "REG_DWORD = 1", this is not a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> "Configure Detection for Potentially Unwanted Applications" to "Enabled" and "Block".'
   impact 0.7
-  tag check_id: 'C-14651r820126_chk'
+  tag check_id: 'C-14651r1260199_chk'
   tag severity: 'high'
   tag gid: 'V-213426'
-  tag rid: 'SV-213426r961197_rule'
+  tag rid: 'SV-213426r1260200_rule'
   tag stig_id: 'WNDF-AV-000001'
   tag gtitle: 'SRG-APP-000279'
   tag fix_id: 'F-14649r823023_fix'
@@ -27,9 +31,17 @@ If the value "PUAProtection" is REG_DWORD = 1, this is not a finding.'
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
 
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender'
+  intune_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager'
 
-  describe registry_key(registry_path) do
-    its('PUAProtection') { should be_nil.or eq 1 }
+  # Alternate check applies when Microsoft Intune applied this setting instead of Group Policy
+  if !registry_key(registry_path).has_property?('PUAProtection') && registry_key(intune_path).has_property?('PUAProtection')
+    describe registry_key(intune_path) do
+      its('PUAProtection') { should eq 1 }
+    end
+  else
+    describe registry_key(registry_path) do
+      its('PUAProtection') { should be_nil.or eq 1 }
+    end
   end
 
 end
