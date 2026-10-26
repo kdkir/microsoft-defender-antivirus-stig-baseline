@@ -10,35 +10,50 @@ The options for this setting are mutually exclusive:
 Any other value, or if the value does not exist, resolves to the default (0). If this setting is enabled, the specified type of monitoring will be enabled. If this setting is disabled or not configured, monitoring for incoming and outgoing files will be enabled.'
   desc 'check', 'Verify the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Real-time Protection >> "Configure monitoring for incoming and outgoing file and program activity" is set to "Enabled" with a policy option value of "bi-directional (full on-access)".
  
-Procedure: Use the Windows Registry Editor to navigate to the following key: 
+Procedure: Use the Windows Registry Editor to navigate to the following key:
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection
 
-Criteria: If the value "RealtimeScanDirection" is REG_DWORD = 0, this is not a finding.
+If the value "RealtimeScanDirection" is"REG_DWORD = 0", this is not a finding.
+If the value is "1" or "2", this is a finding.
 
-If the value is 1 or 2, this is a finding.'
+Alternate Check (if Microsoft Intune applied this setting):
+
+Navigate to "HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager".
+
+If the value "RealtimeScanDirection" is "REG_DWORD = 0", this is not a finding.
+If the value is "1" or "2", this is a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Real-time Protection >> "Configure monitoring for incoming and outgoing file and program activity" to "Enabled" with a policy option value of "bi-directional (full on-access)".'
   impact 0.5
-  tag check_id: 'C-14667r1144026_chk'
+  tag check_id: 'C-14667r1260201_chk'
   tag severity: 'medium'
   tag gid: 'V-213442'
-  tag rid: 'SV-213442r1144028_rule'
+  tag rid: 'SV-213442r1260202_rule'
   tag stig_id: 'WNDF-AV-000018'
   tag gtitle: 'SRG-APP-000278'
   tag fix_id: 'F-14665r1144027_fix'
   tag 'documentable'
   tag legacy: ['SV-89901', 'V-75221']
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
 
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
+  intune_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager'
 
-  describe registry_key(registry_path) do
-    # Default behavior is 0, https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-defender#realtimescandirection
-    # Missing value => nil => passes
-    # Value = 0 => Passes
-    # Value = 1 => FAILS
-    its('RealtimeScanDirection') { should be_nil.or eq 0 }
+  # Alternate check applies when Microsoft Intune applied this setting instead of Group Policy
+  if !registry_key(registry_path).has_property?('RealtimeScanDirection') && registry_key(intune_path).has_property?('RealtimeScanDirection')
+    describe registry_key(intune_path) do
+      its('RealtimeScanDirection') { should eq 0 }
+    end
+  else
+    describe registry_key(registry_path) do
+      # Default behavior is 0, https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-defender#realtimescandirection
+      # Missing value => nil => passes
+      # Value = 0 => Passes
+      # Value = 1 => FAILS
+      its('RealtimeScanDirection') { should be_nil.or eq 0 }
+    end
   end
+
 end
