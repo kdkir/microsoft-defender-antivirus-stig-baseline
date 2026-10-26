@@ -24,13 +24,13 @@ Do not select a value of 0. This disables the option.'
   tag check_id: 'C-14678r820206_chk'
   tag severity: 'high'
   tag gid: 'V-213453'
-  tag rid: 'SV-213453r961188_rule'
+  tag rid: 'SV-213453r1192807_rule'
   tag stig_id: 'WNDF-AV-000029'
   tag gtitle: 'SRG-APP-000276'
   tag fix_id: 'F-14676r823074_fix'
   tag 'documentable'
   tag legacy: ['SV-89923', 'V-75243']
-  tag cci: ['CCI-001240']
+  tag cci: ['CCI-004964']
   tag nist: ['SI-3 b']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
