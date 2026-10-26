@@ -15,19 +15,15 @@ HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\NIS
 Criteria: If the value "EnableConvertWarnToBlock" is REG_DWORD = 1, this is not a finding.
 
 If the value is 0, this is a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> MpEngine >> Convert warn verdict to block to "Enabled".
-
-Click "OK".
-
-Click "Apply".'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Network Inspection System >> Convert warn verdict to block to "Enabled".'
   impact 0.5
   tag check_id: 'C-83211r1144076_chk'
   tag severity: 'medium'
   tag gid: 'V-278677'
-  tag rid: 'SV-278677r1144077_rule'
+  tag rid: 'SV-278677r1192829_rule'
   tag stig_id: 'WNDF-AV-000074'
   tag gtitle: 'SRG-APP-000210'
-  tag fix_id: 'F-83116r1134122_fix'
+  tag fix_id: 'F-83116r1190768_fix'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
