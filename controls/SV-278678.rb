@@ -9,19 +9,15 @@ HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\NIS
 Criteria: If the value "AllowSwitchToAsyncInspection" is REG_DWORD = 1, this is not a finding.
 
 If the value is 0, this is a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> MpEngine >> Turn on asynchronous inspection to "Enabled".
-
-Click "OK".
-
-Click "Apply".'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Network Inspection System >> Turn on asynchronous inspection to "Enabled".'
   impact 0.5
   tag check_id: 'C-83212r1144078_chk'
   tag severity: 'medium'
   tag gid: 'V-278678'
-  tag rid: 'SV-278678r1144079_rule'
+  tag rid: 'SV-278678r1192830_rule'
   tag stig_id: 'WNDF-AV-000075'
   tag gtitle: 'SRG-APP-000210'
-  tag fix_id: 'F-83117r1133725_fix'
+  tag fix_id: 'F-83117r1190770_fix'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
