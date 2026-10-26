@@ -2,23 +2,25 @@ control 'SV-213430' do
   title 'Microsoft Defender AV must be configured to not exclude files opened by specified processes.'
   desc 'This policy setting allows the disabling of scheduled and real-time scanning for any file opened by any of the specified processes. The process itself will not be excluded. To exclude the process, use the Path exclusion. Processes should be added under the options for this setting. Each entry must be listed as a name value pair where the name should be a string representation of the path to the process image. Note that only executables can be excluded. For example, a process might be defined as: "c:\\windows\\app.exe". The value is not used and it is recommended that this be set to 0.'
   desc 'check', 'Verify the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Exclusions >> "Process Exclusions" is set to "Disabled" or "Not Configured".
-  
-Procedure: Use the Windows Registry Editor to navigate to the following key: 
+
+Procedure: Use the Windows Registry Editor to navigate to the following key:
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Exclusions
 
-Criteria: If the value "Exclusions_Processes" does not exist, this is not a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft  Defender Antivirus >> Exclusions >> "Process Exclusions" to "Disabled" or "Not Configured".'
+Criteria: If the value "Exclusions_Processes" does not exist, this is not a finding.
+
+NOTE: The configuration of WNDF-AV-000100 will likely hide this setting from being reviewed. If compliance can be shown via group policy editor or other means, this is not a finding.'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Exclusions >> "Process Exclusions" to "Disabled" or "Not Configured".'
   impact 0.5
-  tag check_id: 'C-14655r820137_chk'
+  tag check_id: 'C-14655r1207391_chk'
   tag severity: 'medium'
   tag gid: 'V-213430'
-  tag rid: 'SV-213430r961194_rule'
+  tag rid: 'SV-213430r1207392_rule'
   tag stig_id: 'WNDF-AV-000006'
   tag gtitle: 'SRG-APP-000278'
-  tag fix_id: 'F-14653r823031_fix'
+  tag fix_id: 'F-14653r1190709_fix'
   tag 'documentable'
   tag legacy: ['SV-89837', 'V-75157']
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
