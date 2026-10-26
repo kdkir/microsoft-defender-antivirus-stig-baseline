@@ -16,13 +16,13 @@ If the value is 1, this is a finding.'
   tag check_id: 'C-14666r820170_chk'
   tag severity: 'medium'
   tag gid: 'V-213441'
-  tag rid: 'SV-213441r961194_rule'
+  tag rid: 'SV-213441r1192800_rule'
   tag stig_id: 'WNDF-AV-000017'
   tag gtitle: 'SRG-APP-000278'
   tag fix_id: 'F-14664r823053_fix'
   tag 'documentable'
   tag legacy: ['SV-89899', 'V-75219']
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
