@@ -7,7 +7,7 @@ license: Apache-2.0
 summary: InSpec profile aligned to STIG Guidance for Microsoft Defender
   Antivirus Security Technical Implementation Guide
 description: null
-version: 2.7.0
+version: 2.10.0
 supports: []
 depends: []
 inspec_version: ">=5.22.80"
