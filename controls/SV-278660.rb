@@ -11,19 +11,15 @@ HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender Security Center\\Family op
 Criteria: If the value "UILockdown" is REG_DWORD = 1, this is not a finding.
 
 If the value is 0, this is a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Security >> Family Options >> Hide the Family options area to "Enabled".
-
-Click "OK".
-
-Click "Apply".'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Security >> Family Options >> Hide the Family options area to "Enabled".'
   impact 0.5
   tag check_id: 'C-83194r1144056_chk'
   tag severity: 'medium'
   tag gid: 'V-278660'
-  tag rid: 'SV-278660r1144057_rule'
+  tag rid: 'SV-278660r1192820_rule'
   tag stig_id: 'WNDF-AV-000056'
   tag gtitle: 'SRG-APP-000210'
-  tag fix_id: 'F-83099r1133671_fix'
+  tag fix_id: 'F-83099r1190749_fix'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
