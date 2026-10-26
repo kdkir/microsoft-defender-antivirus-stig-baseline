@@ -9,21 +9,17 @@ HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan
 Criteria: If the value "DisablePackedExeScanning" is REG_DWORD = 0, this is not a finding.
 
 If the value is 1, this is a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Scan >> Scan packed executables to "Enabled".
-
-Click "OK".
-
-Click "Apply".'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Scan >> Scan packed executables to "Enabled".'
   impact 0.5
   tag check_id: 'C-83213r1144080_chk'
   tag severity: 'medium'
   tag gid: 'V-278679'
-  tag rid: 'SV-278679r1144081_rule'
+  tag rid: 'SV-278679r1192831_rule'
   tag stig_id: 'WNDF-AV-000076'
   tag gtitle: 'SRG-APP-000278'
-  tag fix_id: 'F-83118r1133728_fix'
+  tag fix_id: 'F-83118r1190772_fix'
   tag 'documentable'
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
