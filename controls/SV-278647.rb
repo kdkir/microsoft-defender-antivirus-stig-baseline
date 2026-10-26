@@ -15,19 +15,15 @@ Under the policy option "Set the state for each ASR rule:", then click "Show".
 
 Enter GUID "7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c" in the "Value Name" column.
 
-Enter "1" in the "Value" column.
-
-Click "OK".
-
-Click "Apply".'
+Enter "1" in the "Value" column.'
   impact 0.5
   tag check_id: 'C-83181r1144029_chk'
   tag severity: 'medium'
   tag gid: 'V-278647'
-  tag rid: 'SV-278647r1144030_rule'
+  tag rid: 'SV-278647r1192808_rule'
   tag stig_id: 'WNDF-AV-000043'
   tag gtitle: 'SRG-APP-000210'
-  tag fix_id: 'F-83086r1134292_fix'
+  tag fix_id: 'F-83086r1190725_fix'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
