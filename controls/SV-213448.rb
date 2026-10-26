@@ -6,34 +6,47 @@ control 'SV-213448' do
 Procedure: Use the Windows Registry Editor to navigate to the following key: 
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan
 
-Criteria: If the value "DisableArchiveScanning" is REG_DWORD = 0, this is not a finding.
-
+If the value "DisableArchiveScanning" is "REG_DWORD = 0", this is not a finding.
 If the value does not exist, this is not a finding.
+If the value is "1", this is a finding.
 
-If the value is 1, this is a finding.'
+Alternate Check (if Microsoft Intune applied this setting):
+
+Navigate to "HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager".
+
+If the value "AllowArchiveScanning" is "REG_DWORD = 1", this is not a finding.
+If the value is "0", this is a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Scan >> "Scan archive files" to "Enabled " or "Not Configured".'
   impact 0.5
-  tag check_id: 'C-14673r820191_chk'
+  tag check_id: 'C-14673r1271015_chk'
   tag severity: 'medium'
   tag gid: 'V-213448'
-  tag rid: 'SV-213448r961194_rule'
+  tag rid: 'SV-213448r1271016_rule'
   tag stig_id: 'WNDF-AV-000024'
   tag gtitle: 'SRG-APP-000278'
   tag fix_id: 'F-14671r823066_fix'
   tag 'documentable'
   tag legacy: ['SV-89913', 'V-75233']
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
 
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
+  intune_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager'
 
-  describe registry_key(registry_path) do
-    # Missing value => nil => passes
-    # Value = 0 => Passes
-    # Value = 1 => FAILS
-    its('DisableArchiveScanning') { should be_nil.or eq 0 }
+  # Alternate check applies when Microsoft Intune applied this setting instead of Group Policy
+  if !registry_key(registry_path).has_property?('DisableArchiveScanning') && registry_key(intune_path).has_property?('AllowArchiveScanning')
+    describe registry_key(intune_path) do
+      its('AllowArchiveScanning') { should eq 1 }
+    end
+  else
+    describe registry_key(registry_path) do
+      # Missing value => nil => passes
+      # Value = 0 => Passes
+      # Value = 1 => FAILS
+      its('DisableArchiveScanning') { should be_nil.or eq 0 }
+    end
   end
-  
+
 end
