@@ -9,19 +9,15 @@ HKLM\\Software\\Policies\\Microsoft\\Windows Defender
 Criteria: If the value "DisableLocalAdminMerge" is REG_DWORD = 1, this is not a finding.
 
 If the value is 0, this is a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus  >> Configure local administrator merge behavior for lists to "Enabled".
-
-Click "OK".
-
-Click "Apply".'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Configure local administrator merge behavior for lists to "Enabled".'
   impact 0.5
   tag check_id: 'C-83190r1144050_chk'
   tag severity: 'medium'
   tag gid: 'V-278656'
-  tag rid: 'SV-278656r1144051_rule'
+  tag rid: 'SV-278656r1192817_rule'
   tag stig_id: 'WNDF-AV-000052'
   tag gtitle: 'SRG-APP-000210'
-  tag fix_id: 'F-83095r1133659_fix'
+  tag fix_id: 'F-83095r1190743_fix'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
