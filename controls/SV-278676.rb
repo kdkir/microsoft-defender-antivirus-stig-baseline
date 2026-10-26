@@ -9,21 +9,17 @@ HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan
 Criteria: If the value "QuickScanIncludeExclusions" is REG_DWORD = 1, this is not a finding.
 
 If the value is 0, this is a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Scan >> Scan excluded files and directories during quick scans to "Enabled".
-
-Click "OK".
-
-Click "Apply".'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Scan >> Scan excluded files and directories during quick scans to "Enabled".'
   impact 0.5
   tag check_id: 'C-83210r1144074_chk'
   tag severity: 'medium'
   tag gid: 'V-278676'
-  tag rid: 'SV-278676r1144075_rule'
+  tag rid: 'SV-278676r1192828_rule'
   tag stig_id: 'WNDF-AV-000072'
   tag gtitle: 'SRG-APP-000278'
-  tag fix_id: 'F-83115r1133719_fix'
+  tag fix_id: 'F-83115r1190766_fix'
   tag 'documentable'
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
