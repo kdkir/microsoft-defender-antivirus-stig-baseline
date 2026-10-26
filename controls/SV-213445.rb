@@ -1,38 +1,52 @@
 control 'SV-213445' do
   title 'Microsoft Defender AV must be configured to always enable real-time protection.'
-  desc 'This policy setting turns off real-time protection prompts for known malware detection. Microsoft Defender Antivirus alerts  when malware or potentially unwanted software attempts to install itself or to run on your computer. If this policy setting is enabled, Microsoft Defender Antivirus will not prompt users to take actions on malware detections. If this policy setting is disabled or not configured, Microsoft Defender Antivirus will prompt users to take actions on malware detections.'
+  desc 'This policy setting turns off real-time protection prompts for known malware detection. Microsoft Defender Antivirus alerts when malware or potentially unwanted software attempts to install itself or to run on a user\'s computer. If this policy setting is enabled, Microsoft Defender Antivirus will not prompt users to take actions on malware detections. If this policy setting is disabled or not configured, Microsoft Defender Antivirus will prompt users to take actions on malware detections.'
   desc 'check', 'Verify the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Real-time Protection >> "Turn off real-time protection" is set to "Disabled" or "Not Configured".
  
 Procedure: Use the Windows Registry Editor to navigate to the following key: 
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection
 
-Criteria: If the value "DisableRealtimeMonitoring" is REG_DWORD = 0, this is not a finding.
-
+If the value "DisableRealtimeMonitoring" is "REG_DWORD = 0", this is not a finding.
 If the value does not exist, this is not a finding.
+If the value is "1", this is a finding.
 
-If the value is 1, this is a finding.'
+Alternate Check (if Microsoft Intune applied this setting):
+
+Navigate to "HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager".
+
+If the value "AllowRealtimeMonitoring" is "REG_DWORD = 1", this is not a finding.
+If the value is "1", this is a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Real-time Protection >> "Turn off real-time protection" to "Disabled" or "Not Configured".'
   impact 0.5
-  tag check_id: 'C-14670r820182_chk'
+  tag check_id: 'C-14670r1260207_chk'
   tag severity: 'medium'
   tag gid: 'V-213445'
-  tag rid: 'SV-213445r961194_rule'
+  tag rid: 'SV-213445r1260208_rule'
   tag stig_id: 'WNDF-AV-000021'
   tag gtitle: 'SRG-APP-000278'
   tag fix_id: 'F-14668r823061_fix'
   tag 'documentable'
   tag legacy: ['SV-89907', 'V-75227']
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
 
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection'
+  intune_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager'
 
-  describe registry_key(registry_path) do
-    # Missing value => nil => passes
-    # Value = 0 => Passes
-    # Value = 1 => FAILS
-    its('DisableRealtimeMonitoring') { should be_nil.or eq 0 }
+  # Alternate check applies when Microsoft Intune applied this setting instead of Group Policy
+  if !registry_key(registry_path).has_property?('DisableRealtimeMonitoring') && registry_key(intune_path).has_property?('AllowRealtimeMonitoring')
+    describe registry_key(intune_path) do
+      its('AllowRealtimeMonitoring') { should eq 1 }
+    end
+  else
+    describe registry_key(registry_path) do
+      # Missing value => nil => passes
+      # Value = 0 => Passes
+      # Value = 1 => FAILS
+      its('DisableRealtimeMonitoring') { should be_nil.or eq 0 }
+    end
   end
+
 end
