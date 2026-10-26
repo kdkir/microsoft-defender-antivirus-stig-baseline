@@ -17,15 +17,21 @@ If this setting is enabled, a scheduled scan will run at the frequency specified
 Procedure: Use the Windows Registry Editor to navigate to the following key: 
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan
 
-Criteria: If the value "ScheduleDay" is REG_DWORD = 0x8, this is a finding.
+If the value "ScheduleDay" is "REG_DWORD = 0x8", this is a finding.
+Values of "0x0" through "0x7" are acceptable and not a finding.
 
-Values of 0x0 through 0x7 are acceptable and not a finding.'
+Alternate Check (if Microsoft Intune applied this setting):
+
+Navigate to "HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager".
+
+If the value "ScheduleScanDay" is "REG_DWORD = 0x8", this is a finding.
+Values of "0x0" through "0x7" are acceptable and not a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Scan >> "Specify the day of the week to run a scheduled scan" to "Enabled " and select anything other than "Never" in the drop-down box.'
   impact 0.5
-  tag check_id: 'C-14675r820197_chk'
+  tag check_id: 'C-14675r1260215_chk'
   tag severity: 'medium'
   tag gid: 'V-213450'
-  tag rid: 'SV-213450r961191_rule'
+  tag rid: 'SV-213450r1260216_rule'
   tag stig_id: 'WNDF-AV-000026'
   tag gtitle: 'SRG-APP-000277'
   tag fix_id: 'F-14673r823069_fix'
@@ -37,10 +43,18 @@ Values of 0x0 through 0x7 are acceptable and not a finding.'
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
 
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Scan'
+  intune_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager'
 
-  describe registry_key(registry_path) do
-    it { should have_property 'ScheduleDay' }
-    its('ScheduleDay') { should be_between(0, 7).inclusive }
+  # Alternate check applies when Microsoft Intune applied this setting instead of Group Policy
+  if !registry_key(registry_path).has_property?('ScheduleDay') && registry_key(intune_path).has_property?('ScheduleScanDay')
+    describe registry_key(intune_path) do
+      its('ScheduleScanDay') { should be_between(0, 7).inclusive }
+    end
+  else
+    describe registry_key(registry_path) do
+      it { should have_property 'ScheduleDay' }
+      its('ScheduleDay') { should be_between(0, 7).inclusive }
+    end
   end
 
 end
