@@ -8,13 +8,21 @@ Verify the policy value for Computer Configuration >> Administrative Templates >
 Procedure: Use the Windows Registry Editor to navigate to the following key: 
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection
 
-Criteria: If the value "EnableNetworkProtection" is REG_DWORD = 1, this is not a finding.'
+If the value "EnableNetworkProtection" is "REG_DWORD = 1", this is not a finding.
+If the value is "0", this is a finding.
+
+Alternate Check (if Microsoft Intune applied this setting):
+
+Navigate to "HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager".
+
+If the value "EnableNetworkProtection" is "REG_DWORD = 1", this is not a finding.
+If the value is "0", this is a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Windows Defender Exploit Guard >> Network Protection >> "Prevent users and apps from accessing dangerous websites" to "Enabled" and select "Block" in the drop-down box.'
   impact 0.5
-  tag check_id: 'C-14688r820236_chk'
+  tag check_id: 'C-14688r1260220_chk'
   tag severity: 'medium'
   tag gid: 'V-213463'
-  tag rid: 'SV-213463r961092_rule'
+  tag rid: 'SV-213463r1260221_rule'
   tag stig_id: 'WNDF-AV-000039'
   tag gtitle: 'SRG-APP-000210'
   tag fix_id: 'F-14686r823094_fix'
@@ -26,9 +34,17 @@ Criteria: If the value "EnableNetworkProtection" is REG_DWORD = 1, this is not a
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
 
   registry_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection'
+  intune_path = 'HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Policy Manager'
 
-  describe registry_key(registry_path) do
-    its('EnableNetworkProtection') { should eq 1 }
+  # Alternate check applies when Microsoft Intune applied this setting instead of Group Policy
+  if !registry_key(registry_path).has_property?('EnableNetworkProtection') && registry_key(intune_path).has_property?('EnableNetworkProtection')
+    describe registry_key(intune_path) do
+      its('EnableNetworkProtection') { should eq 1 }
+    end
+  else
+    describe registry_key(registry_path) do
+      its('EnableNetworkProtection') { should eq 1 }
+    end
   end
 
 end
