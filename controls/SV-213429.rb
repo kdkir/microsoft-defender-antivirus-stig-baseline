@@ -8,19 +8,21 @@ Exceptions can be made to allow file/folders that are impacting enterprise appli
 Procedure: Use the Windows Registry Editor to navigate to the following key: 
 HKLM\\Software\\Policies\\Microsoft\\Windows Defender\\Exclusions
  
-Criteria: If the value "Exclusions_Paths" does not exist, this is not a finding.'
+Criteria: If the value "Exclusions_Paths" does not exist, this is not a finding.
+
+NOTE: The configuration of WNDF-AV-000100 will likely hide this setting from being reviewed. If compliance can be shown via group policy editor or other means, this is not a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Exclusions >> "Path Exclusions" to "Disabled" or "Not Configured".'
   impact 0.5
-  tag check_id: 'C-14654r820134_chk'
+  tag check_id: 'C-14654r1207389_chk'
   tag severity: 'medium'
   tag gid: 'V-213429'
-  tag rid: 'SV-213429r961194_rule'
+  tag rid: 'SV-213429r1207390_rule'
   tag stig_id: 'WNDF-AV-000005'
   tag gtitle: 'SRG-APP-000278'
   tag fix_id: 'F-14652r823029_fix'
   tag 'documentable'
   tag legacy: ['SV-89835', 'V-75155']
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
