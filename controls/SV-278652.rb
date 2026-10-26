@@ -1,5 +1,5 @@
 control 'SV-278652' do
-  title 'Microsoft Defender AV must block persistence through WMI event subscription.'
+  title 'Microsoft Defender AV must audit persistence through WMI event subscription.'
   desc 'This policy setting prevents malware from abusing WMI to attain persistence on a device.
 
 Fileless threats employ various tactics to stay hidden, to avoid being seen in the file system, and to gain periodic execution control. Some threats can abuse the WMI repository and event model to stay hidden.'
@@ -17,19 +17,15 @@ Under the policy option "Set the state for each ASR rule:", then click "Show".
 
 Enter GUID "e6db77e5-3df2-4cf1-b95a-636979351e5b" in the "Value Name" column.
 
-Enter "2" in the "Value" column.
-
-Click "OK".
-
-Click "Apply".'
+Enter "2" in the "Value" column.'
   impact 0.5
   tag check_id: 'C-83186r1144040_chk'
   tag severity: 'medium'
   tag gid: 'V-278652'
-  tag rid: 'SV-278652r1144042_rule'
+  tag rid: 'SV-278652r1192813_rule'
   tag stig_id: 'WNDF-AV-000048'
   tag gtitle: 'SRG-APP-000210'
-  tag fix_id: 'F-83091r1144041_fix'
+  tag fix_id: 'F-83091r1190735_fix'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
