@@ -9,21 +9,17 @@ HKLM\\Software\\Policies\\Microsoft\\Windows Defender
 Criteria: If the value "RandomizeScheduleTaskTimes" is REG_DWORD = 1, this is not a finding.
 
 If the value is 0, this is a finding.'
-  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Randomize scheduled task times to "Enabled".
-
-Click "OK".
-
-Click "Apply".'
+  desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> Randomize scheduled task times to "Enabled".'
   impact 0.5
   tag check_id: 'C-83193r1144054_chk'
   tag severity: 'medium'
   tag gid: 'V-278659'
-  tag rid: 'SV-278659r1144055_rule'
+  tag rid: 'SV-278659r1192819_rule'
   tag stig_id: 'WNDF-AV-000055'
   tag gtitle: 'SRG-APP-000278'
-  tag fix_id: 'F-83098r1133668_fix'
+  tag fix_id: 'F-83098r1190747_fix'
   tag 'documentable'
-  tag cci: ['CCI-001242']
+  tag cci: ['CCI-002624']
   tag nist: ['SI-3 c 1']
 
   only_if('Windows Defender is not the active antivirus product') { windows_defender_active.active? }
