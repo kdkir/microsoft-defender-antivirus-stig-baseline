@@ -11,19 +11,15 @@ Criteria: If the value "MpCloudBlockLevel" is REG_DWORD = 2, this is not a findi
 If the value is other than 2, this is a finding.'
   desc 'fix', 'Set the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Microsoft Defender Antivirus >> MpEngine >> Select cloud protection level to "Enabled".
 
-Set policy value "Select cloud blocking level" to "High blocking level".
-
-Click "OK".
-
-Click "Apply".'
+Set policy value "Select cloud blocking level" to "High blocking level".'
   impact 0.5
   tag check_id: 'C-83397r1144084_chk'
   tag severity: 'medium'
   tag gid: 'V-278863'
-  tag rid: 'SV-278863r1144086_rule'
+  tag rid: 'SV-278863r1192833_rule'
   tag stig_id: 'WNDF-AV-000073'
   tag gtitle: 'SRG-APP-000210'
-  tag fix_id: 'F-83302r1144085_fix'
+  tag fix_id: 'F-83302r1190776_fix'
   tag 'documentable'
   tag cci: ['CCI-001170']
   tag nist: ['SC-18 (4)']
